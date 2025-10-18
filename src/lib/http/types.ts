@@ -24,9 +24,13 @@ export type ApiResponse<T> = {
 export const API_ROUTES = {
   auth: {
     login: "/users/login",
+    logout: "/users/logout",
   },
   experience: {
     getAll: "/experiences",
+  },
+  user: {
+    me: "/users/me",
   },
 } as const;
 

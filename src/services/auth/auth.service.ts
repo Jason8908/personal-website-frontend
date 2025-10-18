@@ -15,4 +15,12 @@ export async function login(request: LoginRequest): Promise<ApiResponse<null>> {
   return res;
 }
 
-export const authService = { login };
+export async function logout(): Promise<ApiResponse<null>> {
+  const client = getApiClient();
+  const res = await client.delete<ApiResponse<null>>(API_ROUTES.auth.logout, {
+    credentials: "include",
+  });
+  return res;
+}
+
+export const authService = { login, logout };

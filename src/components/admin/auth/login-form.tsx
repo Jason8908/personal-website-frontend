@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { authService } from "@/services";
 import { HTTP_STATUS_CODES } from "@/lib/http/types";
+import { ROUTES } from "@/lib/routes";
 import { HttpError } from "@/lib/http";
 
 import {
@@ -49,6 +51,7 @@ function LoginForm({ className }: { className?: string }) {
     Partial<Record<keyof FormState, string[]>>
   >({});
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
   function setField<K extends keyof FormState>(key: K) {
     return (value: string) => setState((s) => ({ ...s, [key]: value }));
@@ -92,6 +95,8 @@ function LoginForm({ className }: { className?: string }) {
         response.success
       ) {
         toast.success("Logged in successfully");
+
+        router.push(ROUTES.admin.dashboard);
       } else {
         toast.error(response.message || "Login failed");
       }
