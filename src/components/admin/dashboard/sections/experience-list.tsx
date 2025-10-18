@@ -18,7 +18,7 @@ export function ExperienceList() {
         const res = await experienceService.getAllExperiences();
         if (!mounted) return;
         setExperiences(res.data ?? []);
-      } catch (err) {
+      } catch {
         if (!mounted) return;
         toast.error("Unable to get experiences");
         setExperiences([]);
@@ -28,8 +28,14 @@ export function ExperienceList() {
       }
     }
     load();
+    function refresh() {
+      setLoading(true);
+      load();
+    }
+    window.addEventListener("experiences:refresh", refresh);
     return () => {
       mounted = false;
+      window.removeEventListener("experiences:refresh", refresh);
     };
   }, []);
 

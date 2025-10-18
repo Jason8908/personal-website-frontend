@@ -28,6 +28,7 @@ export const API_ROUTES = {
   },
   experience: {
     getAll: "/experiences",
+    create: "/experiences",
   },
   user: {
     me: "/users/me",
