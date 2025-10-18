@@ -82,6 +82,8 @@ export function CreateExperienceDialog({ open, onOpenChange }: CreateExperienceD
         endDate: endDate,
       });
       onOpenChange(false);
+
+      // We could use Zustand, but this is just a simple website after all.
       window.dispatchEvent(new Event("experiences:refresh"));
     } catch {
       toast.error("Failed to create experience");
