@@ -34,6 +34,7 @@ export const API_ROUTES = {
   },
   project: {
     getAll: "/projects",
+    create: "/projects",
   },
   user: {
     me: "/users/me",

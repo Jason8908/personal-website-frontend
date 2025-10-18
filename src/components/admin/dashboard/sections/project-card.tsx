@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Project } from "@/services";
 import { Badge } from "@/components/ui/badge";
@@ -6,14 +7,29 @@ import { Globe } from "lucide-react";
 // Prefer simple-icons for brand marks
 import { SiGithub } from "react-icons/si"
 import Image from "next/image";
+import { ProjectDialog } from "@/components/admin/dashboard/sections/project-dialog";
 
 type ProjectCardProps = {
   project: Project;
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const [open, setOpen] = useState(false);
   return (
-    <Card className="overflow-hidden">
+    <div className="overflow-hidden">
+      <ProjectDialog project={project} open={open} onOpenChange={setOpen} />
+      <Card
+        role="button"
+        tabIndex={0}
+        onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
+        className="overflow-hidden cursor-pointer transition-transform transition-shadow hover:-translate-y-0.5 hover:shadow-lg"
+      >
       <CardHeader>
         <CardTitle className="leading-tight font-semibold text-base md:text-lg">
           {project.name}
@@ -88,7 +104,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </CardContent>
-    </Card>
+      </Card>
+    </div>
   );
 }
 

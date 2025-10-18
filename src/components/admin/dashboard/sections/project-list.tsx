@@ -28,8 +28,14 @@ export function ProjectList() {
       }
     }
     load();
+    function refresh() {
+      setLoading(true);
+      load();
+    }
+    window.addEventListener("projects:refresh", refresh);
     return () => {
       mounted = false;
+      window.removeEventListener("projects:refresh", refresh);
     };
   }, []);
 
