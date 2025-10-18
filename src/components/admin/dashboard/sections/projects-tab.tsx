@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProjectList } from "@/components/admin/dashboard/sections/project-list";
 import { CreateProjectButton } from "@/components/admin/dashboard/sections/create-project-button";
 
