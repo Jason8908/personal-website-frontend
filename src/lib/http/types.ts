@@ -32,6 +32,9 @@ export const API_ROUTES = {
     update: (id: string) => `/experiences/${id}`,
     delete: (id: string) => `/experiences/${id}`,
   },
+  project: {
+    getAll: "/projects",
+  },
   user: {
     me: "/users/me",
   },

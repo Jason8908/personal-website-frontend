@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProjectList } from "@/components/admin/dashboard/sections/project-list";
 
 export function ProjectsTab() {
   return (
@@ -9,10 +10,8 @@ export function ProjectsTab() {
           Placeholder: manage your projects. Add project, edit details, and showcase order.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="text-sm text-muted-foreground">
-          This area will show a grid or list of projects with actions.
-        </div>
+      <CardContent className="grid gap-6">
+        <ProjectList />
       </CardContent>
     </Card>
   );

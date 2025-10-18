@@ -5,3 +5,5 @@ export { authService } from "@/services/auth/auth.service";
 export type { LoginRequest } from "@/services/auth/auth.service";
 export { userService } from "@/services/user/user.service";
 export type { User } from "@/services/user/types";
+export { projectService } from "@/services/project/project.service";
+export type { Project } from "@/services/project/types";
