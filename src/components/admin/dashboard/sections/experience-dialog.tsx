@@ -12,6 +12,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -33,6 +44,8 @@ type ExperienceDialogProps = {
 export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceDialogProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   // Local editable state
   const [company, setCompany] = useState(experience.company);
@@ -175,11 +188,32 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
     }
   }
 
+  async function onDeleteConfirm() {
+    setIsDeleting(true);
+    try {
+      await experienceService.deleteExperience(experience.id);
+      toast.success("Experience deleted");
+      setConfirmOpen(false);
+      onOpenChange(false);
+      window.dispatchEvent(new Event("experiences:refresh"));
+    } catch {
+      toast.error("Failed to delete experience");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+    <Dialog
+      open={open}
+      onOpenChange={(o) => {
+        if (isSaving || isDeleting) return;
+        onOpenChange(o);
+      }}
+    >
+      <DialogContent onInteractOutside={(e) => { if (isSaving || isDeleting) e.preventDefault(); }}>
         <div className="absolute right-3 top-3">
-          <DialogClose className="h-8 w-8 p-0" aria-label="Close">
+          <DialogClose className="h-8 w-8 p-0" aria-label="Close" disabled={isSaving || isDeleting}>
             <XIcon className="size-4" />
           </DialogClose>
         </div>
@@ -234,8 +268,30 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
 
             <DialogFooter>
               <div className="flex w-full items-center justify-end gap-2">
-                <Button variant="destructive">Delete</Button>
-                <Button variant="outline" onClick={() => setIsEditing(true)}>Edit</Button>
+                <AlertDialog open={confirmOpen} onOpenChange={(o) => { if (!(isSaving || isDeleting)) setConfirmOpen(o); }}>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" disabled={isSaving || isDeleting}>
+                      {isDeleting && <Spinner className="mr-2" />} Delete
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete experience?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. Are you sure you want to delete this experience?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+                      <AlertDialogAction asChild>
+                        <Button variant="destructive" onClick={onDeleteConfirm} disabled={isDeleting}>
+                          {isDeleting && <Spinner className="mr-2" />} Delete
+                        </Button>
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <Button variant="outline" onClick={() => setIsEditing(true)} disabled={isSaving || isDeleting}>Edit</Button>
               </div>
             </DialogFooter>
           </div>
@@ -254,7 +310,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                   <FieldTitle>Company</FieldTitle>
                 </FieldLabel>
                 <FieldContent>
-                  <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" />
+                  <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" disabled={isSaving || isDeleting} />
                 </FieldContent>
               </Field>
 
@@ -263,7 +319,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                   <FieldTitle>Position</FieldTitle>
                 </FieldLabel>
                 <FieldContent>
-                  <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Senior Engineer" />
+                  <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Senior Engineer" disabled={isSaving || isDeleting} />
                 </FieldContent>
               </Field>
 

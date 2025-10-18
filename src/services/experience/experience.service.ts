@@ -60,6 +60,12 @@ export const experienceService = {
       credentials: "include",
     });
   },
+  async deleteExperience(id: string): Promise<ApiResponse<null>> {
+    const client = getApiClient();
+    return client.delete<ApiResponse<null>>(API_ROUTES.experience.delete(id), {
+      credentials: "include",
+    });
+  },
 };
 
 function toUtcIsoString(d: Date | string): string {

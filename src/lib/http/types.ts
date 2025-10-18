@@ -30,6 +30,7 @@ export const API_ROUTES = {
     getAll: "/experiences",
     create: "/experiences",
     update: (id: string) => `/experiences/${id}`,
+    delete: (id: string) => `/experiences/${id}`,
   },
   user: {
     me: "/users/me",
