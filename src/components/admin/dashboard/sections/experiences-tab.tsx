@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ExperienceList } from "@/components/admin/dashboard/sections/experience-list";
 
 export function ExperiencesTab() {
   return (
@@ -9,10 +10,8 @@ export function ExperiencesTab() {
           Placeholder: list and manage professional experiences. Create, edit, delete coming soon.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="text-sm text-muted-foreground">
-          This area will show a table or list of experiences with actions.
-        </div>
+      <CardContent className="grid gap-6">
+        <ExperienceList />
       </CardContent>
     </Card>
   );
