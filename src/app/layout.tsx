@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/navigation/Navbar";
+import {NextIntlClientProvider} from 'next-intl';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jason Su",
-  description: "Welcome to my personal website!",
+  title: "Jason Su - Software Engineer",
+  description: "Jason is a Software Engineer, Fullstack Developer, and a coffee enthusiast!",
 };
 
 export default function RootLayout({
@@ -25,12 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
         <Navbar />
-        {children}
+        <NextIntlClientProvider>
+          {children}
+        </NextIntlClientProvider>
         <Toaster richColors position="top-center" />
       </body>
     </html>
