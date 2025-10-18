@@ -21,6 +21,17 @@ import { Calendar } from "@/components/ui/calendar";
 import { Spinner } from "@/components/ui/spinner";
 import { educationService } from "@/services";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type EducationDialogProps = {
   education: Education;
@@ -31,6 +42,8 @@ type EducationDialogProps = {
 export function EducationDialog({ education, open, onOpenChange }: EducationDialogProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
 
   // editable state
@@ -138,17 +151,32 @@ export function EducationDialog({ education, open, onOpenChange }: EducationDial
     }
   }
 
+  async function onDeleteConfirm() {
+    setIsDeleting(true);
+    try {
+      await educationService.deleteEducation(education.id);
+      toast.success("Education deleted");
+      setConfirmOpen(false);
+      onOpenChange(false);
+      window.dispatchEvent(new Event("education:refresh"));
+    } catch {
+      toast.error("Failed to delete education");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   return (
     <Dialog
       open={open}
       onOpenChange={(o) => {
-        if (isSaving) return;
+        if (isSaving || isDeleting) return;
         onOpenChange(o);
       }}
     >
-      <DialogContent onInteractOutside={(e) => { if (isSaving) e.preventDefault(); }}>
+      <DialogContent onInteractOutside={(e) => { if (isSaving || isDeleting) e.preventDefault(); }}>
         <div className="absolute right-3 top-3">
-          <DialogClose className="h-8 w-8 p-0" aria-label="Close" disabled={isSaving}>
+          <DialogClose className="h-8 w-8 p-0" aria-label="Close" disabled={isSaving || isDeleting}>
             <XIcon className="size-4" />
           </DialogClose>
         </div>
@@ -174,7 +202,30 @@ export function EducationDialog({ education, open, onOpenChange }: EducationDial
             </div>
             <DialogFooter>
               <div className="flex w-full items-center justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsEditing(true)}>Edit</Button>
+                <AlertDialog open={confirmOpen} onOpenChange={(o) => { if (!(isSaving || isDeleting)) setConfirmOpen(o); }}>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" disabled={isSaving || isDeleting}>
+                      {isDeleting && <Spinner className="mr-2" />} Delete
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete education entry?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. Are you sure you want to delete this education entry?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+                      <AlertDialogAction asChild>
+                        <Button variant="destructive" onClick={onDeleteConfirm} disabled={isDeleting}>
+                          {isDeleting && <Spinner className="mr-2" />} Delete
+                        </Button>
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <Button variant="outline" onClick={() => setIsEditing(true)} disabled={isSaving || isDeleting}>Edit</Button>
               </div>
             </DialogFooter>
           </>

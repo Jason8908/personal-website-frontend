@@ -30,6 +30,10 @@ export const educationService = {
     if (changes.endDate !== undefined) body.endDate = toUtcIsoString(changes.endDate);
     return client.patch<ApiResponse<Education>>(API_ROUTES.education.update(id), body, { credentials: "include" });
   },
+  async deleteEducation(id: string): Promise<ApiResponse<null>> {
+    const client = getApiClient();
+    return client.delete<ApiResponse<null>>(API_ROUTES.education.delete(id), { credentials: "include" });
+  },
 };
 
 export type CreateEducationRequest = {
