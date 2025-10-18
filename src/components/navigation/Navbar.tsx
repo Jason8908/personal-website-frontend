@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +17,8 @@ const NAV_ITEMS: { label: string; href: string }[] = [
 ];
 
 export function Navbar({ className }: NavbarProps) {
+  const [open, setOpen] = useState(false);
+
   return (
     <header
       className={cn(
@@ -21,7 +26,7 @@ export function Navbar({ className }: NavbarProps) {
         className
       )}
     >
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
+      <div className="relative mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <Link href="#" className="text-xl font-semibold text-foreground sm:text-xl">
           Jason Su
         </Link>
@@ -37,11 +42,64 @@ export function Navbar({ className }: NavbarProps) {
             </Link>
           ))}
         </nav>
+
+        <button
+          type="button"
+          className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/80 hover:text-foreground hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-label="Open menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <svg
+            className={cn("h-6 w-6", open && "hidden")}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <svg
+            className={cn("h-6 w-6", !open && "hidden")}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <div
+          id="mobile-menu"
+          className={cn(
+            "absolute left-0 right-0 top-full z-50 mt-2 origin-top rounded-md border border-border/30 bg-background/95 p-2 shadow-lg backdrop-blur sm:hidden transform-gpu transition-all duration-200 ease-out",
+            open
+              ? "opacity-100 scale-y-100 translate-y-0"
+              : "pointer-events-none opacity-0 scale-y-95 -translate-y-1"
+          )}
+          role="menu"
+          aria-label="Mobile navigation"
+          aria-hidden={!open}
+        >
+          <div className="flex flex-col divide-y divide-border/20">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="px-3 py-3 text-base text-foreground/90 hover:text-foreground hover:bg-foreground/5"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </header>
   );
 }
 
 export default Navbar;
-
-
