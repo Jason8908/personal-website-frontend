@@ -19,6 +19,17 @@ export const educationService = {
     };
     return client.post<ApiResponse<Education>>(API_ROUTES.education.create, body, { credentials: "include" });
   },
+  async updateEducation(id: string, changes: UpdateEducationRequest): Promise<ApiResponse<Education>> {
+    const client = getApiClient();
+    const body: Record<string, unknown> = {};
+    if (changes.school !== undefined) body.school = changes.school;
+    if (changes.degree !== undefined) body.degree = changes.degree;
+    if (changes.fieldOfStudy !== undefined) body.fieldOfStudy = changes.fieldOfStudy;
+    if (changes.description !== undefined) body.description = changes.description;
+    if (changes.startDate !== undefined) body.startDate = toUtcIsoString(changes.startDate);
+    if (changes.endDate !== undefined) body.endDate = toUtcIsoString(changes.endDate);
+    return client.patch<ApiResponse<Education>>(API_ROUTES.education.update(id), body, { credentials: "include" });
+  },
 };
 
 export type CreateEducationRequest = {
@@ -35,3 +46,12 @@ function toUtcIsoString(d: Date | string): string {
   if (Number.isNaN(date.getTime())) throw new Error("Invalid date for education");
   return date.toISOString();
 }
+
+export type UpdateEducationRequest = {
+  school?: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  description?: string;
+  startDate?: Date | string;
+  endDate?: Date | string;
+};

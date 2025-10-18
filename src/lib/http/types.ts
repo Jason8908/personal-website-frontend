@@ -41,6 +41,7 @@ export const API_ROUTES = {
   education: {
     getAll: "/education",
     create: "/education",
+    update: (id: string) => `/education/${id}`,
   },
   user: {
     me: "/users/me",
