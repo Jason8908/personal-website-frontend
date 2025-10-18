@@ -23,6 +23,20 @@ export function HeroCentered({ name, role, className }: HeroCenteredProps) {
           {role}
         </p>
       </div>
+      <div className="absolute inset-x-0 bottom-4 sm:bottom-6 flex justify-center">
+        <a href="#about" className="group inline-flex flex-col items-center gap-2">
+          <svg
+            className="h-6 w-6 text-foreground/70 transition-colors group-hover:text-foreground animate-bounce"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="sr-only">Scroll down</span>
+        </a>
+      </div>
     </section>
   );
 }
