@@ -8,3 +8,5 @@ export type { User } from "@/services/user/types";
 export { projectService } from "@/services/project/project.service";
 export type { Project } from "@/services/project/types";
 export type { CreateProjectRequest, UpdateProjectRequest } from "@/services/project/project.service";
+export { educationService } from "@/services/education/education.service";
+export type { Education } from "@/services/education/types";

@@ -38,6 +38,9 @@ export const API_ROUTES = {
     update: (id: string) => `/projects/${id}`,
     delete: (id: string) => `/projects/${id}`,
   },
+  education: {
+    getAll: "/education",
+  },
   user: {
     me: "/users/me",
   },

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EducationList } from "@/components/admin/dashboard/sections/education-list";
 
 export function EducationTab() {
   return (
@@ -6,10 +7,8 @@ export function EducationTab() {
       <CardHeader>
         <CardTitle>Education</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="text-sm text-muted-foreground">
-          This area will show a list of education entries with actions.
-        </div>
+      <CardContent className="grid gap-6">
+        <EducationList />
       </CardContent>
     </Card>
   );
