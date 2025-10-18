@@ -24,7 +24,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
-import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
+import { Field, FieldContent, FieldError, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -46,6 +46,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
 
   // Local editable state
   const [company, setCompany] = useState(experience.company);
@@ -74,6 +75,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
       setSkills(experience.skills || []);
       setSkillInput("");
       setIsSaving(false);
+      setShowErrors(false);
     }
   }, [open, experience]);
 
@@ -149,7 +151,20 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
     }
   }, [experience, isEditing]);
 
+  const errors = {
+    company: company.trim() ? undefined : "Company is required",
+    position: position.trim() ? undefined : "Position is required",
+    startDate: startDate ? undefined : "Start date is required",
+    bullets: bullets.length > 0 ? undefined : "Add at least one bullet point",
+    skills: skills.length > 0 ? undefined : "Add at least one skill",
+  } as const;
+  const isInvalid = Boolean(
+    errors.company || errors.position || errors.startDate || errors.bullets || errors.skills
+  );
+
   async function onSave() {
+    setShowErrors(true);
+    if (isInvalid) return;
     setIsSaving(true);
     try {
       const changes: Record<string, unknown> = {};
@@ -305,25 +320,27 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
             </DialogHeader>
 
             <FieldSet>
-              <Field>
+              <Field data-invalid={showErrors && !!errors.company}>
                 <FieldLabel>
                   <FieldTitle>Company</FieldTitle>
                 </FieldLabel>
                 <FieldContent>
-                  <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" disabled={isSaving || isDeleting} />
+                  <Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" disabled={isSaving || isDeleting} aria-invalid={showErrors && !!errors.company} />
+                  <FieldError errors={showErrors && errors.company ? [{ message: errors.company }] : undefined} />
                 </FieldContent>
               </Field>
 
-              <Field>
+              <Field data-invalid={showErrors && !!errors.position}>
                 <FieldLabel>
                   <FieldTitle>Position</FieldTitle>
                 </FieldLabel>
                 <FieldContent>
-                  <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Senior Engineer" disabled={isSaving || isDeleting} />
+                  <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Senior Engineer" disabled={isSaving || isDeleting} aria-invalid={showErrors && !!errors.position} />
+                  <FieldError errors={showErrors && errors.position ? [{ message: errors.position }] : undefined} />
                 </FieldContent>
               </Field>
 
-              <Field>
+              <Field data-invalid={showErrors && !!errors.startDate}>
                 <FieldLabel>
                   <FieldTitle>Start Date</FieldTitle>
                 </FieldLabel>
@@ -331,7 +348,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                   <div className="flex items-center gap-2">
                     <Popover>
                       <PopoverTrigger asChild>
-                        <Button variant="outline" className="justify-start">
+                        <Button variant="outline" className="justify-start" aria-invalid={showErrors && !!errors.startDate}>
                           <CalendarIcon className="mr-2 size-4" />
                           {startDate ? formatDate(startDate, "MM/dd/yyyy", { timeZone: "local" }) : "Pick a date"}
                         </Button>
@@ -341,6 +358,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                       </PopoverContent>
                     </Popover>
                   </div>
+                  <FieldError errors={showErrors && errors.startDate ? [{ message: errors.startDate }] : undefined} />
                 </FieldContent>
               </Field>
 
@@ -368,7 +386,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                 </FieldContent>
               </Field>
 
-              <Field>
+              <Field data-invalid={showErrors && !!errors.bullets}>
                 <FieldLabel>
                   <FieldTitle>Bullet Points</FieldTitle>
                 </FieldLabel>
@@ -378,6 +396,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                       value={bulletInput}
                       onChange={(e) => setBulletInput(e.target.value)}
                       placeholder="What did you accomplish?"
+                      aria-invalid={showErrors && !!errors.bullets}
                     />
                     <Button type="button" onClick={addBullet} disabled={!bulletInput.trim()}>
                       Add
@@ -395,10 +414,11 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                       ))}
                     </ul>
                   )}
+                  <FieldError errors={showErrors && errors.bullets ? [{ message: errors.bullets }] : undefined} />
                 </FieldContent>
               </Field>
 
-              <Field>
+              <Field data-invalid={showErrors && !!errors.skills}>
                 <FieldLabel>
                   <FieldTitle>Skills</FieldTitle>
                 </FieldLabel>
@@ -408,6 +428,7 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                       value={skillInput}
                       onChange={(e) => setSkillInput(e.target.value)}
                       placeholder="e.g. TypeScript"
+                      aria-invalid={showErrors && !!errors.skills}
                     />
                     <Button type="button" onClick={addSkill} disabled={!skillInput.trim()}>
                       Add
@@ -425,13 +446,14 @@ export function ExperienceDialog({ experience, open, onOpenChange }: ExperienceD
                       ))}
                     </div>
                   )}
+                  <FieldError errors={showErrors && errors.skills ? [{ message: errors.skills }] : undefined} />
                 </FieldContent>
               </Field>
             </FieldSet>
 
             <DialogFooter>
               <div className="flex w-full items-center justify-end gap-2">
-                <Button variant="outline" disabled={isSaving} onClick={() => { resetFromExperience(); setIsEditing(false); }}>Cancel</Button>
+                <Button variant="outline" disabled={isSaving} onClick={() => { resetFromExperience(); setShowErrors(false); setIsEditing(false); }}>Cancel</Button>
                 <Button onClick={onSave} disabled={isSaving}>
                   {isSaving && <Spinner className="mr-2" />} Save
                 </Button>
