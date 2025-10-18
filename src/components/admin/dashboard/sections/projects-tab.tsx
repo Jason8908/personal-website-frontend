@@ -10,9 +10,6 @@ export function ProjectsTab() {
           <CardTitle>Projects</CardTitle>
           <CreateProjectButton />
         </div>
-        <CardDescription>
-          Placeholder: manage your projects. Add project, edit details, and showcase order.
-        </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
         <ProjectList />

@@ -36,6 +36,7 @@ export const API_ROUTES = {
     getAll: "/projects",
     create: "/projects",
     update: (id: string) => `/projects/${id}`,
+    delete: (id: string) => `/projects/${id}`,
   },
   user: {
     me: "/users/me",

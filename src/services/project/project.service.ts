@@ -30,6 +30,10 @@ export const projectService = {
     if (changes.imageUrl !== undefined) body.imageUrl = changes.imageUrl;
     return client.patch<ApiResponse<Project>>(API_ROUTES.project.update(id), body, { credentials: "include" });
   },
+  async deleteProject(id: string): Promise<ApiResponse<null>> {
+    const client = getApiClient();
+    return client.delete<ApiResponse<null>>(API_ROUTES.project.delete(id), { credentials: "include" });
+  },
 };
 
 export type CreateProjectRequest = {

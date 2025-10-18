@@ -23,6 +23,17 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { projectService } from "@/services";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type ProjectDialogProps = {
   project: Project;
@@ -33,6 +44,8 @@ type ProjectDialogProps = {
 export function ProjectDialog({ project, open, onOpenChange }: ProjectDialogProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
 
   // Editable state
@@ -147,17 +160,32 @@ export function ProjectDialog({ project, open, onOpenChange }: ProjectDialogProp
     }
   }
 
+  async function onDeleteConfirm() {
+    setIsDeleting(true);
+    try {
+      await projectService.deleteProject(project.id);
+      toast.success("Project deleted");
+      setConfirmOpen(false);
+      onOpenChange(false);
+      window.dispatchEvent(new Event("projects:refresh"));
+    } catch {
+      toast.error("Failed to delete project");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   return (
     <Dialog
       open={open}
       onOpenChange={(o) => {
-        if (isSaving) return;
+        if (isSaving || isDeleting) return;
         onOpenChange(o);
       }}
     >
-      <DialogContent onInteractOutside={(e) => { if (isSaving) e.preventDefault(); }}>
+      <DialogContent onInteractOutside={(e) => { if (isSaving || isDeleting) e.preventDefault(); }}>
         <div className="absolute right-3 top-3">
-          <DialogClose className="h-8 w-8 p-0" aria-label="Close" disabled={isSaving}>
+          <DialogClose className="h-8 w-8 p-0" aria-label="Close" disabled={isSaving || isDeleting}>
             <XIcon className="size-4" />
           </DialogClose>
         </div>
@@ -232,7 +260,30 @@ export function ProjectDialog({ project, open, onOpenChange }: ProjectDialogProp
 
             <DialogFooter>
               <div className="flex w-full items-center justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsEditing(true)}>Edit</Button>
+                <AlertDialog open={confirmOpen} onOpenChange={(o) => { if (!(isSaving || isDeleting)) setConfirmOpen(o); }}>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" disabled={isSaving || isDeleting}>
+                      {isDeleting && <Spinner className="mr-2" />} Delete
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete project?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. Are you sure you want to delete this project?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+                      <AlertDialogAction asChild>
+                        <Button variant="destructive" onClick={onDeleteConfirm} disabled={isDeleting}>
+                          {isDeleting && <Spinner className="mr-2" />} Delete
+                        </Button>
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <Button variant="outline" onClick={() => setIsEditing(true)} disabled={isSaving || isDeleting}>Edit</Button>
               </div>
             </DialogFooter>
           </div>
