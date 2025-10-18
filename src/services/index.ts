@@ -7,4 +7,4 @@ export { userService } from "@/services/user/user.service";
 export type { User } from "@/services/user/types";
 export { projectService } from "@/services/project/project.service";
 export type { Project } from "@/services/project/types";
-export type { CreateProjectRequest } from "@/services/project/project.service";
+export type { CreateProjectRequest, UpdateProjectRequest } from "@/services/project/project.service";
