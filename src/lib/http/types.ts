@@ -29,6 +29,7 @@ export const API_ROUTES = {
   experience: {
     getAll: "/experiences",
     create: "/experiences",
+    update: (id: string) => `/experiences/${id}`,
   },
   user: {
     me: "/users/me",
