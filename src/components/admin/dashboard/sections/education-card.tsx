@@ -10,10 +10,11 @@ export function EducationCard({ education }: EducationCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
-          <span className="font-semibold">{education.school}</span>
-          <span className="text-muted-foreground text-sm">{education.degree} • {education.fieldOfStudy}</span>
-        </CardTitle>
+        <CardTitle className="leading-tight font-semibold">{education.school}</CardTitle>
+        <div className="text-muted-foreground text-sm break-words leading-snug">
+          {education.degree}
+          {education.fieldOfStudy ? ` • ${education.fieldOfStudy}` : ""}
+        </div>
       </CardHeader>
       <CardContent className="grid gap-3">
         <div className="text-sm text-muted-foreground">
