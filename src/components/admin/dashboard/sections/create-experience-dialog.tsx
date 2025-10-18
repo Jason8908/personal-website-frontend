@@ -178,17 +178,19 @@ export function CreateExperienceDialog({ open, onOpenChange }: CreateExperienceD
               <FieldTitle>Start Date</FieldTitle>
             </FieldLabel>
             <FieldContent>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="justify-start" disabled={loading}>
-                    <CalendarIcon className="mr-2 size-4" />
-                    {startDate ? formatDate(startDate, "MM/dd/yyyy", { timeZone: "local" }) : "Pick a date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="start" className="p-0">
-                  <Calendar mode="single" selected={startDate} onSelect={(d) => setStartDate(d || undefined)} />
-                </PopoverContent>
-              </Popover>
+              <div className="flex items-center gap-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="justify-start" disabled={loading}>
+                      <CalendarIcon className="mr-2 size-4" />
+                      {startDate ? formatDate(startDate, "MM/dd/yyyy", { timeZone: "local" }) : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent align="start" className="p-0">
+                    <Calendar mode="single" selected={startDate} onSelect={(d) => setStartDate(d || undefined)} />
+                  </PopoverContent>
+                </Popover>
+              </div>
               <FieldError errors={showErrors && errors.startDate ? [{ message: errors.startDate }] : undefined} />
             </FieldContent>
           </Field>
