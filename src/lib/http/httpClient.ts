@@ -10,7 +10,7 @@ type NextOptions = {
 export type HttpClientOptions = {
   headers?: Record<string, string>;
   next?: NextOptions;
-  fetchImpl?: typeof fetch;
+  credentials?: RequestCredentials;
 };
 
 export type JsonBody = Record<string, unknown> | unknown[] | null;
@@ -31,12 +31,10 @@ export class HttpError extends Error {
 
 export class HttpClient {
   private readonly baseUrl: string;
-  private readonly fetchImpl: typeof fetch;
 
-  constructor(options?: { baseUrl?: string; fetchImpl?: typeof fetch }) {
+  constructor(options?: { baseUrl?: string }) {
     const env = getEnv();
     this.baseUrl = options?.baseUrl ?? env.apiBaseUrl;
-    this.fetchImpl = options?.fetchImpl ?? fetch;
   }
 
   async request<T>(
@@ -51,11 +49,12 @@ export class HttpClient {
       ...(options?.headers ?? {}),
     };
 
-    const response = await this.fetchImpl(url, {
+    const response = await fetch(url, {
       method,
       headers,
       body: body != null ? JSON.stringify(body) : undefined,
       next: options?.next,
+      credentials: options?.credentials,
     });
 
     const text = await response.text();
@@ -115,5 +114,3 @@ function safeParseJson(text: string): unknown {
     return text;
   }
 }
-
-
