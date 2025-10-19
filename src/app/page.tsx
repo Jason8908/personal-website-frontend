@@ -1,6 +1,7 @@
 import { HeroCentered } from "@/components/landing/hero";
 import { AboutSection } from "@/components/landing/about";
 import { EducationSection } from "@/components/landing/education";
+import { ExperienceSection } from "@/components/landing/experience";
 import { Navbar } from "@/components/navigation/Navbar";
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
       <AboutSection />
       {/* Education */}
       <EducationSection />
+      {/* Experience */}
+      <ExperienceSection />
     </main>
   );
 }

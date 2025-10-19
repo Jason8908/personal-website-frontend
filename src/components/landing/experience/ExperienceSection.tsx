@@ -1,48 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GraduationCap } from "lucide-react";
-import { educationService } from "@/services/education/education.service";
-import type { Education } from "@/services/education/types";
+import { BriefcaseBusiness } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
+import { experienceService } from "@/services/experience/experience.service";
+import type { Experience } from "@/services/experience/types";
+import { ExperienceList } from "./ExperienceList";
 import { cn } from "@/lib/utils";
-import { EducationList } from "./EducationList";
 
-type EducationSectionProps = {
+type ExperienceSectionProps = {
   className?: string;
 };
 
-export function EducationSection({ className }: EducationSectionProps) {
-  const [education, setEducation] = useState<Education[] | null>(null);
+export function ExperienceSection({ className }: ExperienceSectionProps) {
+  const [experiences, setExperiences] = useState<Experience[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let isMounted = true;
+    let mounted = true;
     const load = async () => {
       try {
-        const res = await educationService.getAllEducation();
-        if (!isMounted) return;
-        setEducation(res.data ?? []);
+        const res = await experienceService.getAllExperiences();
+        if (!mounted) return;
+        setExperiences(res.data ?? []);
       } catch {
-        if (!isMounted) return;
-        setEducation([]);
+        if (!mounted) return;
+        setExperiences([]);
       } finally {
-        if (isMounted) setLoading(false);
+        if (mounted) setLoading(false);
       }
     };
     load();
     return () => {
-      isMounted = false;
+      mounted = false;
     };
   }, []);
 
   return (
-    <section id="education" className={cn("w-full px-6 py-20", className)}>
+    <section id="experience" className={cn("w-full px-6 py-20", className)}>
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-10 flex items-center justify-center gap-3">
-          <GraduationCap className="h-12 w-12 text-secondary" aria-hidden="true" />
+          <BriefcaseBusiness className="h-12 w-12 text-secondary" aria-hidden="true" />
           <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            Education
+            Experience
           </h2>
         </div>
 
@@ -50,8 +50,8 @@ export function EducationSection({ className }: EducationSectionProps) {
           <div className="grid place-items-center py-16">
             <Spinner className="size-8 text-secondary" />
           </div>
-        ) : education && education.length > 0 ? (
-          <EducationList items={education} />
+        ) : experiences && experiences.length > 0 ? (
+          <ExperienceList items={experiences} />
         ) : (
           <div className="rounded-xl border border-dashed border-border/30 bg-card/30 p-8 text-center">
             <p className="text-foreground/80">Nothing here yet. Check back later.</p>
@@ -62,6 +62,4 @@ export function EducationSection({ className }: EducationSectionProps) {
   );
 }
 
-export default EducationSection;
-
-
+export default ExperienceSection;
