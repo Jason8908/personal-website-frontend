@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { SiteFooter } from "@/components/navigation/SiteFooter";
 import {NextIntlClientProvider} from 'next-intl';
 
 const geistSans = Geist({
@@ -32,6 +33,7 @@ export default function RootLayout({
         <NextIntlClientProvider>
           {children}
         </NextIntlClientProvider>
+        <SiteFooter />
         <Toaster richColors position="top-center" />
       </body>
     </html>
