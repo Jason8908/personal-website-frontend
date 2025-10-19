@@ -12,7 +12,7 @@ export function ExperienceItem({ item, isFirst = false }: ExperienceItemProps) {
     <li className="relative pl-10">
       <span
         className={
-          "absolute left-4 top-5 -translate-x-1/2 -translate-y-1/2 rounded-full z-10 " +
+          "absolute left-[16.5px] top-5 -translate-x-1/2 -translate-y-1/2 rounded-full z-10 " +
           (isFirst ? "h-3 w-3 bg-primary" : "h-2 w-2 bg-foreground")
         }
         aria-hidden
