@@ -7,12 +7,14 @@ import type { Education } from "@/services/education/types";
 import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { EducationList } from "./EducationList";
+import { useTranslations } from "next-intl";
 
 type EducationSectionProps = {
   className?: string;
 };
 
 export function EducationSection({ className }: EducationSectionProps) {
+  const t = useTranslations("Sections.education");
   const [education, setEducation] = useState<Education[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,7 +44,7 @@ export function EducationSection({ className }: EducationSectionProps) {
         <div className="mb-10 flex items-center justify-center gap-3">
           <GraduationCap className="h-12 w-12 text-secondary" aria-hidden="true" />
           <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            Education
+            {t("title")}
           </h2>
         </div>
 
@@ -54,7 +56,7 @@ export function EducationSection({ className }: EducationSectionProps) {
           <EducationList items={education} />
         ) : (
           <div className="rounded-xl border border-dashed border-border/30 bg-card/30 p-8 text-center">
-            <p className="text-foreground/80">Nothing here yet. Check back later.</p>
+            <p className="text-foreground/80">{t("empty")}</p>
           </div>
         )}
       </div>

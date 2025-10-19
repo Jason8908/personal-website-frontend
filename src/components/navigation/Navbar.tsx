@@ -3,19 +3,23 @@
 import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type NavbarProps = {
   className?: string;
 };
 
-const NAV_ITEMS: { label: string; href: string }[] = [
-  { label: "About", href: "#about" },
-  { label: "Education", href: "#education" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
+type NavKey = "about" | "education" | "experience" | "projects";
+
+const NAV_ITEMS: { key: NavKey; href: string }[] = [
+  { key: "about", href: "#about" },
+  { key: "education", href: "#education" },
+  { key: "experience", href: "#experience" },
+  { key: "projects", href: "#projects" },
 ];
 
 export function Navbar({ className }: NavbarProps) {
+  const t = useTranslations("Navbar");
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,7 +31,7 @@ export function Navbar({ className }: NavbarProps) {
     >
       <div className="relative mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <Link href="#" className="text-xl font-semibold text-foreground sm:text-xl">
-          Jason Su
+          {t("brand")}
         </Link>
 
         <nav className="hidden items-center gap-6 sm:flex">
@@ -37,7 +41,7 @@ export function Navbar({ className }: NavbarProps) {
               href={item.href}
               className="text-lg text-foreground/80 transition-colors hover:text-foreground"
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
         </nav>
@@ -45,7 +49,7 @@ export function Navbar({ className }: NavbarProps) {
         <button
           type="button"
           className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/80 hover:text-foreground hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label="Open menu"
+          aria-label={t("menuOpen")}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
@@ -91,7 +95,7 @@ export function Navbar({ className }: NavbarProps) {
                 role="menuitem"
                 onClick={() => setOpen(false)}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
           </div>

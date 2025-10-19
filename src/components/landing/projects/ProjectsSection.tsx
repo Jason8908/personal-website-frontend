@@ -7,12 +7,14 @@ import { projectService } from "@/services/project/project.service";
 import type { Project } from "@/services/project/types";
 import { ProjectsList } from "./ProjectsList";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type ProjectsSectionProps = {
   className?: string;
 };
 
 export function ProjectsSection({ className }: ProjectsSectionProps) {
+  const t = useTranslations("Sections.projects");
   const [projects, setProjects] = useState<Project[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,7 +44,7 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
         <div className="mb-10 flex items-center justify-center gap-3">
           <Sparkles className="h-12 w-12 text-secondary" aria-hidden="true" />
           <h2 className="text-center text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            Projects
+            {t("title")}
           </h2>
         </div>
 
@@ -54,7 +56,7 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
           <ProjectsList items={projects} />
         ) : (
           <div className="rounded-xl border border-dashed border-border/30 bg-card/30 p-8 text-center">
-            <p className="text-foreground/80">Nothing here yet. Check back later.</p>
+            <p className="text-foreground/80">{t("empty")}</p>
           </div>
         )}
       </div>

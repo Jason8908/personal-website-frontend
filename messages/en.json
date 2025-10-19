@@ -10,5 +10,36 @@
     },
     "contactLabelLinkedIn": "LinkedIn",
     "contactLabelEmail": "Email"
+  },
+  "Navbar": {
+    "brand": "Jason Su",
+    "about": "About",
+    "education": "Education",
+    "experience": "Experience",
+    "projects": "Projects",
+    "menuOpen": "Open menu"
+  },
+  "Sections": {
+    "education": {
+      "title": "Education",
+      "empty": "Nothing here yet. Check back later."
+    },
+    "experience": {
+      "title": "Experience",
+      "empty": "Nothing here yet. Check back later."
+    },
+    "projects": {
+      "title": "Projects",
+      "empty": "Nothing here yet. Check back later."
+    }
+  },
+  "Project": {
+    "labels": {
+      "github": "GitHub",
+      "website": "Website"
+    }
+  },
+  "Footer": {
+    "copyright": "© 2025 Jason Su. All rights reserved."
   }
 }
