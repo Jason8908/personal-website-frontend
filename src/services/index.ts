@@ -1,0 +1,13 @@
+export { experienceService } from "@/services/experience/experience.service";
+export type { Experience } from "@/services/experience/types";
+export type { CreateExperienceRequest, UpdateExperienceRequest } from "@/services/experience/experience.service";
+export { authService } from "@/services/auth/auth.service";
+export type { LoginRequest } from "@/services/auth/auth.service";
+export { userService } from "@/services/user/user.service";
+export type { User } from "@/services/user/types";
+export { projectService } from "@/services/project/project.service";
+export type { Project } from "@/services/project/types";
+export type { CreateProjectRequest, UpdateProjectRequest } from "@/services/project/project.service";
+export { educationService } from "@/services/education/education.service";
+export type { Education } from "@/services/education/types";
+export type { CreateEducationRequest, UpdateEducationRequest } from "@/services/education/education.service";

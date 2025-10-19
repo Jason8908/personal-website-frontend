@@ -1,0 +1,45 @@
+{
+  "About": {
+    "title": "About Me",
+    "description": "Hello! I'm a Software Engineer and Computer Science student at UofT. I think tech is cool and I like to build things.\nI have a wealth of professional work experience in the field of software development and have worked with a variety of technologies and frameworks.\nOutside of work, I like to cook, play video games, and spend time with my family and friends."
+  },
+  "Hero": {
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/jason-su-utsc/",
+      "email": "mailto:jasonsu894@gmail.com"
+    },
+    "contactLabelLinkedIn": "LinkedIn",
+    "contactLabelEmail": "Email"
+  },
+  "Navbar": {
+    "brand": "Jason Su",
+    "about": "About",
+    "education": "Education",
+    "experience": "Experience",
+    "projects": "Projects",
+    "menuOpen": "Open menu"
+  },
+  "Sections": {
+    "education": {
+      "title": "Education",
+      "empty": "Nothing here yet. Check back later."
+    },
+    "experience": {
+      "title": "Experience",
+      "empty": "Nothing here yet. Check back later."
+    },
+    "projects": {
+      "title": "Projects",
+      "empty": "Nothing here yet. Check back later."
+    }
+  },
+  "Project": {
+    "labels": {
+      "github": "GitHub",
+      "website": "Website"
+    }
+  },
+  "Footer": {
+    "copyright": "© 2025 Jason Su. All rights reserved."
+  }
+}
