@@ -13,7 +13,6 @@ const NAV_ITEMS: { label: string; href: string }[] = [
   { label: "Education", href: "#education" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export function Navbar({ className }: NavbarProps) {
