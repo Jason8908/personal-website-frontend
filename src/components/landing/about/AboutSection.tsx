@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { UserRound } from "lucide-react";
 
 type AboutSectionProps = {
   className?: string;
@@ -13,9 +14,12 @@ export async function AboutSection({ className }: AboutSectionProps) {
     <section id="about" className={cn("w-full px-6 py-20", className)}>
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2">
         <div className="order-2 md:order-1 flex flex-col gap-4">
-          <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            {t("title")}
-          </h2>
+          <div className="flex items-center gap-3">
+            <UserRound className="h-11 w-11 text-secondary" aria-hidden="true" />
+            <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+              {t("title")}
+            </h2>
+          </div>
           {t("description")
             .split(/\n+/)
             .map((paragraph) => paragraph.trim())
