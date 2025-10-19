@@ -13,7 +13,7 @@ export async function AboutSection({ className }: AboutSectionProps) {
     <section id="about" className={cn("w-full px-6 py-20", className)}>
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2">
         <div className="order-2 md:order-1 flex flex-col gap-4">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             {t("title")}
           </h2>
           {t("description")
