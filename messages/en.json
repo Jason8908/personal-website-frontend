@@ -15,8 +15,11 @@
     "title": "💻",
     "paragraphs": [
       "Hey, I'm <em>Jason</em>! I like to build things.",
-      "I'm an incoming Software Engineer @ <em>Shopify</em>, starting in August 2026.",
+      "I graduated from the <em>University of Toronto</em> with an Honours Bachelor of Science in <em>Computer Science</em>, and am now an incoming Software Engineer @ <em>Shopify</em>.",
       "Outside of work, I like spending time with my <em>family</em>, playing video games with my <em>friends</em>, and occasionally rambling on my <em>blog</em>."
     ]
+  },
+  "Footer": {
+    "copyright": "Jason Su © 2026"
   }
 }

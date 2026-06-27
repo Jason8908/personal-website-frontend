@@ -1,4 +1,5 @@
 import { Header } from "@/components/navigation/Header";
+import { Footer } from "@/components/navigation/Footer";
 import { Container } from "@/components/layout/Container";
 import { About } from "@/components/sections/About";
 
@@ -9,6 +10,7 @@ export default function Home() {
       <Container>
         <About />
       </Container>
+      <Footer />
     </main>
   );
 }
