@@ -7,7 +7,7 @@ export function Header() {
   const t = useTranslations("Header");
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur">
+    <header className="w-full">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 pt-15">
         <Link
           href={t("homeHref")}
