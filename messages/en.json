@@ -1,1 +1,14 @@
-{}
+{
+  "Header": {
+    "initials": "JS",
+    "homeHref": "/",
+    "github": {
+      "url": "https://github.com/Jason8908",
+      "label": "GitHub"
+    },
+    "linkedin": {
+      "url": "https://www.linkedin.com/in/jason-su-utsc/",
+      "label": "LinkedIn"
+    }
+  }
+}
