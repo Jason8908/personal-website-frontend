@@ -1,23 +1,22 @@
-import { HeroCentered } from "@/components/landing/hero";
-import { AboutSection } from "@/components/landing/about";
-import { EducationSection } from "@/components/landing/education";
-import { ExperienceSection } from "@/components/landing/experience";
-import { ProjectsSection } from "@/components/landing/projects";
-import { Navbar } from "@/components/navigation/Navbar";
+import { Header } from "@/components/navigation/Header";
+import { StickyNav } from "@/components/navigation/StickyNav";
+import { Footer } from "@/components/navigation/Footer";
+import { Container } from "@/components/layout/Container";
+import { About } from "@/components/sections/About";
+import { Experience } from "@/components/sections/experience/Experience";
+import { Projects } from "@/components/sections/projects/Projects";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full">
-      <Navbar />
-      <HeroCentered name="Jason Su" role="Software Engineer, Computer Science Student @ UofT" />
-      {/* About */}
-      <AboutSection />
-      {/* Education */}
-      <EducationSection />
-      {/* Experience */}
-      <ExperienceSection />
-      {/* Projects */}
-      <ProjectsSection />
+    <main id="home" className="min-h-screen w-full">
+      <Header />
+      <StickyNav />
+      <Container>
+        <About />
+        <Experience />
+        <Projects />
+      </Container>
+      <Footer />
     </main>
   );
 }

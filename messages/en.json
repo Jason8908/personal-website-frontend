@@ -1,45 +1,41 @@
 {
+  "Header": {
+    "initials": "JS",
+    "homeHref": "/",
+    "github": {
+      "url": "https://github.com/Jason8908",
+      "label": "GitHub"
+    },
+    "linkedin": {
+      "url": "https://www.linkedin.com/in/jason-su-utsc/",
+      "label": "LinkedIn"
+    }
+  },
   "About": {
-    "title": "About Me",
-    "description": "Hello! I'm a Software Engineer and Computer Science student at UofT. I think tech is cool and I like to build things.\nI have a wealth of professional work experience in the field of software development and have worked with a variety of technologies and frameworks.\nOutside of work, I like to cook, play video games, and spend time with my family and friends."
-  },
-  "Hero": {
-    "links": {
-      "linkedin": "https://www.linkedin.com/in/jason-su-utsc/",
-      "email": "mailto:jasonsu894@gmail.com"
-    },
-    "contactLabelLinkedIn": "LinkedIn",
-    "contactLabelEmail": "Email"
-  },
-  "Navbar": {
-    "brand": "Jason Su",
-    "about": "About",
-    "education": "Education",
-    "experience": "Experience",
-    "projects": "Projects",
-    "menuOpen": "Open menu"
-  },
-  "Sections": {
-    "education": {
-      "title": "Education",
-      "empty": "Nothing here yet. Check back later."
-    },
-    "experience": {
-      "title": "Experience",
-      "empty": "Nothing here yet. Check back later."
-    },
-    "projects": {
-      "title": "Projects",
-      "empty": "Nothing here yet. Check back later."
-    }
-  },
-  "Project": {
-    "labels": {
-      "github": "GitHub",
-      "website": "Website"
-    }
+    "title": "💻",
+    "paragraphs": [
+      "Hey, I'm <em>Jason</em>! I like to build things.",
+      "I graduated from the <em>University of Toronto</em> with an Honours Bachelor of Science in <em>Computer Science</em>, and am now an incoming Software Engineer @ <em>Shopify</em>.",
+      "Outside of work, I like spending time with my <em>family</em>, playing video games with my <em>friends</em>, and occasionally rambling on my <em>blog</em>."
+    ]
   },
   "Footer": {
-    "copyright": "© 2025 Jason Su. All rights reserved."
+    "copyright": "Jason Su © 2026"
+  },
+  "Experience": {
+    "title": "Experience",
+    "empty": "No experiences to show right now. Check back soon.",
+    "present": "Present"
+  },
+  "Projects": {
+    "title": "Projects",
+    "empty": "No projects to show right now. Check back soon.",
+    "github": "View on GitHub"
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects"
   }
 }
