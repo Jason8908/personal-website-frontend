@@ -11,7 +11,7 @@ export function SiteOgImage({ name, role }: SiteOgImageProps) {
         flexDirection: 'column',
         width: '100%',
         height: '100%',
-        background: '#0F1413',
+        background: '#08090A',
         color: '#EAFBFF',
         fontFamily:
           "'Geist', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
