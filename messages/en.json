@@ -21,5 +21,10 @@
   },
   "Footer": {
     "copyright": "Jason Su © 2026"
+  },
+  "Experience": {
+    "title": "Experience",
+    "empty": "No experiences to show right now. Check back soon.",
+    "present": "Present"
   }
 }
