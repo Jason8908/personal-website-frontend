@@ -33,7 +33,7 @@ export function Projects() {
   const isEmpty = status === "ready" && items.length === 0;
 
   return (
-    <section id="projects">
+    <section id="projects" className="scroll-mt-20">
       <SectionHeading title={t("title")} />
 
       {status === "loading" && (

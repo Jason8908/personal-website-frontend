@@ -36,7 +36,7 @@ export function Experience() {
   const isEmpty = status === "ready" && items.length === 0;
 
   return (
-    <section id="experience" className="pb-16 md:pb-24">
+    <section id="experience" className="scroll-mt-20 pb-16 md:pb-24">
       <SectionHeading title={t("title")} />
       {status === "loading" && (
         <div className="flex justify-center py-10">
