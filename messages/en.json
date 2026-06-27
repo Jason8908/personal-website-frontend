@@ -26,5 +26,10 @@
     "title": "Experience",
     "empty": "No experiences to show right now. Check back soon.",
     "present": "Present"
+  },
+  "Projects": {
+    "title": "Projects",
+    "empty": "No projects to show right now. Check back soon.",
+    "github": "View on GitHub"
   }
 }

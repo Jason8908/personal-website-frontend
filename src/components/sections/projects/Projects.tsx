@@ -2,29 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { experienceService } from "@/services/experience/experience.service";
-import type { Experience as ExperienceData } from "@/services/experience/types";
-import { ExperienceItem } from "@/components/sections/experience/ExperienceItem";
+import { projectService } from "@/services/project/project.service";
+import type { Project } from "@/services/project/types";
+import { ProjectCard } from "@/components/sections/projects/ProjectCard";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { Spinner } from "@/components/ui/spinner";
 
 type Status = "loading" | "error" | "ready";
 
-export function Experience() {
-  const t = useTranslations("Experience");
+export function Projects() {
+  const t = useTranslations("Projects");
   const [status, setStatus] = useState<Status>("loading");
-  const [items, setItems] = useState<ExperienceData[]>([]);
+  const [items, setItems] = useState<Project[]>([]);
 
   useEffect(() => {
     let active = true;
-    experienceService
-      .getAllExperiences()
+    projectService
+      .getAllProjects()
       .then((res) => {
         if (!active) return;
-        const sorted = [...res.data].sort(
-          (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-        );
-        setItems(sorted);
+        setItems(res.data);
         setStatus("ready");
       })
       .catch(() => active && setStatus("error"));
@@ -36,8 +33,9 @@ export function Experience() {
   const isEmpty = status === "ready" && items.length === 0;
 
   return (
-    <section id="experience" className="pb-16 md:pb-24">
+    <section id="projects">
       <SectionHeading title={t("title")} />
+
       {status === "loading" && (
         <div className="flex justify-center py-10">
           <Spinner className="size-8 text-muted-foreground" />
@@ -49,16 +47,11 @@ export function Experience() {
       )}
 
       {status === "ready" && items.length > 0 && (
-        <ol className="relative ml-1.5 space-y-10 border-l border-border">
-          {items.map((experience, index) => (
-            <ExperienceItem
-              key={experience.id}
-              experience={experience}
-              presentLabel={t("present")}
-              isMostRecent={index === 0}
-            />
+        <div className="flex flex-wrap gap-6">
+          {items.map((project) => (
+            <ProjectCard key={project.id} project={project} githubLabel={t("github")} />
           ))}
-        </ol>
+        </div>
       )}
     </section>
   );
