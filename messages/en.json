@@ -10,5 +10,13 @@
       "url": "https://www.linkedin.com/in/jason-su-utsc/",
       "label": "LinkedIn"
     }
+  },
+  "About": {
+    "title": "💻",
+    "paragraphs": [
+      "Hey, I'm <em>Jason</em>! I like to build things.",
+      "I'm an incoming Software Engineer @ <em>Shopify</em>, starting in August 2026.",
+      "Outside of work, I like spending time with my <em>family</em>, playing video games with my <em>friends</em>, and occasionally rambling on my <em>blog</em>."
+    ]
   }
 }
