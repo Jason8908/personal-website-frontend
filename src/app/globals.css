@@ -78,11 +78,11 @@
 }
 
 .dark {
-  --background: #0F1413; /* darker near-black */
+  --background: #08090A;
   --foreground: #EAFBFF; /* lighter text */
-  --card: #0F1413;
+  --card: #0F1011;
   --card-foreground: #EAFBFF;
-  --popover: #0F1413;
+  --popover: #0F1011;
   --popover-foreground: #EAFBFF;
   --primary: #8DDCA4; /* mint green */
   --primary-foreground: #171D1C; /* on-mint text */
@@ -101,7 +101,7 @@
   --chart-3: #97DFFC;
   --chart-4: #613DC1;
   --chart-5: #171D1C;
-  --sidebar: #0F1413;
+  --sidebar: #0F1011;
   --sidebar-foreground: #EAFBFF;
   --sidebar-primary: #8DDCA4;
   --sidebar-primary-foreground: #171D1C;
