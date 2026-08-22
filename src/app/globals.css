@@ -80,6 +80,7 @@
 }
 
 .dark {
+  color-scheme: dark; /* renders native controls (e.g. input[type=month] picker) dark */
   --background: #08090A;
   --foreground: #EAFBFF; /* lighter text */
   --highlight: #2DD4BF; /* teal accent */

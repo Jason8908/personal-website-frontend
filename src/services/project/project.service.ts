@@ -7,17 +7,21 @@ export const projectService = {
   async getAllProjects(): Promise<ApiResponse<Project[]>> {
     return getApiClient().get<ApiResponse<Project[]>>(API_ROUTES.project.getAll);
   },
-  async createProject(payload: CreateProjectRequest): Promise<ApiResponse<Project>> {
+  async createProject(payload: CreateProjectRequest): Promise<ApiResponse<string>> {
     const client = getApiClient();
     const body: Record<string, unknown> = {
       name: payload.name,
       description: payload.description,
       skills: payload.skills,
     };
-    if (payload.githubUrl) body.githubUrl = payload.githubUrl;
-    if (payload.websiteUrl) body.websiteUrl = payload.websiteUrl;
-    if (payload.imageUrl) body.imageUrl = payload.imageUrl;
-    return client.post<ApiResponse<Project>>(API_ROUTES.project.create, body, { credentials: "include" });
+
+    // On create, null and absent are equivalent — the columns default to null — so
+    // omit empty URLs rather than sending null. Update is the path that clears a URL.
+    if (payload.githubUrl != null) body.githubUrl = payload.githubUrl;
+    if (payload.websiteUrl != null) body.websiteUrl = payload.websiteUrl;
+    if (payload.imageUrl != null) body.imageUrl = payload.imageUrl;
+
+    return client.post<ApiResponse<string>>(API_ROUTES.project.create, body, { credentials: "include" });
   },
   async updateProject(id: string, changes: UpdateProjectRequest): Promise<ApiResponse<Project>> {
     const client = getApiClient();
@@ -25,6 +29,7 @@ export const projectService = {
     if (changes.name !== undefined) body.name = changes.name;
     if (changes.description !== undefined) body.description = changes.description;
     if (changes.skills !== undefined) body.skills = changes.skills;
+    // null is meaningful here: it clears the column. Never send "" — it fails isURL().
     if (changes.githubUrl !== undefined) body.githubUrl = changes.githubUrl;
     if (changes.websiteUrl !== undefined) body.websiteUrl = changes.websiteUrl;
     if (changes.imageUrl !== undefined) body.imageUrl = changes.imageUrl;
@@ -40,9 +45,9 @@ export type CreateProjectRequest = {
   name: string;
   description: string;
   skills: string[];
-  githubUrl?: string;
-  websiteUrl?: string;
-  imageUrl?: string;
+  githubUrl?: string | null;
+  websiteUrl?: string | null;
+  imageUrl?: string | null;
 };
 
 export type UpdateProjectRequest = {

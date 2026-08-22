@@ -1,4 +1,29 @@
+import Link from "next/link";
+import { Briefcase, FolderGit2, GraduationCap } from "lucide-react";
+
 import { SectionHeading } from "@/components/sections/SectionHeading";
+import { ROUTES } from "@/lib/routes";
+
+const SECTIONS = [
+  {
+    href: ROUTES.admin.experiences,
+    icon: Briefcase,
+    title: "Experience",
+    description: "Roles on the public timeline.",
+  },
+  {
+    href: ROUTES.admin.projects,
+    icon: FolderGit2,
+    title: "Projects",
+    description: "Work shown in the projects section.",
+  },
+  {
+    href: ROUTES.admin.education,
+    icon: GraduationCap,
+    title: "Education",
+    description: "Schools and degrees.",
+  },
+];
 
 export default function AdminDashboardPage() {
   return (
@@ -12,17 +37,18 @@ export default function AdminDashboardPage() {
 
       <section>
         <SectionHeading title="Content" />
-        {/*
-          Entity management lands here as link cards to /admin/experiences,
-          /admin/projects and /admin/education. Each of those gets its own
-          page under (protected)/ and owns its list fetch and CRUD dialogs;
-          this page stays an index.
-        */}
-        <div className="rounded-xl border border-border bg-card p-6">
-          <h3 className="font-semibold text-foreground">Nothing to manage yet</h3>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            Experience, project and education management will appear here.
-          </p>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {SECTIONS.map(({ href, icon: Icon, title, description }) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-highlight/40"
+            >
+              <Icon className="size-5 text-highlight" />
+              <h3 className="mt-3 font-semibold text-foreground">{title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
+            </Link>
+          ))}
         </div>
       </section>
     </div>

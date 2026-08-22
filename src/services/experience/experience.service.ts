@@ -25,7 +25,7 @@ export const experienceService = {
   async getAllExperiences(): Promise<ApiResponse<Experience[]>> {
     return getApiClient().get<ApiResponse<Experience[]>>(API_ROUTES.experience.getAll);
   },
-  async createExperience(payload: CreateExperienceRequest): Promise<ApiResponse<Experience>> {
+  async createExperience(payload: CreateExperienceRequest): Promise<ApiResponse<string>> {
     const client = getApiClient();
     const body: Record<string, unknown> = {
       company: payload.company,
@@ -39,7 +39,7 @@ export const experienceService = {
       body.endDate = toUtcIsoString(payload.endDate);
     }
 
-    return client.post<ApiResponse<Experience>>(API_ROUTES.experience.create, body, {
+    return client.post<ApiResponse<string>>(API_ROUTES.experience.create, body, {
       credentials: "include",
     });
   },

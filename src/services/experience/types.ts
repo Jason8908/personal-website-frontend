@@ -5,5 +5,5 @@ export type Experience = {
   bulletPoints: string[];
   skills: string[];
   startDate: string;
-  endDate: string;
+  endDate: string | null;
 };

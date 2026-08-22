@@ -7,7 +7,7 @@ export const educationService = {
   async getAllEducation(): Promise<ApiResponse<Education[]>> {
     return getApiClient().get<ApiResponse<Education[]>>(API_ROUTES.education.getAll);
   },
-  async createEducation(payload: CreateEducationRequest): Promise<ApiResponse<Education>> {
+  async createEducation(payload: CreateEducationRequest): Promise<ApiResponse<string>> {
     const client = getApiClient();
     const body = {
       school: payload.school,
@@ -17,7 +17,7 @@ export const educationService = {
       startDate: toUtcIsoString(payload.startDate),
       endDate: toUtcIsoString(payload.endDate),
     };
-    return client.post<ApiResponse<Education>>(API_ROUTES.education.create, body, { credentials: "include" });
+    return client.post<ApiResponse<string>>(API_ROUTES.education.create, body, { credentials: "include" });
   },
   async updateEducation(id: string, changes: UpdateEducationRequest): Promise<ApiResponse<Education>> {
     const client = getApiClient();
